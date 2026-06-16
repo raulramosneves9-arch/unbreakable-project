@@ -1,0 +1,277 @@
+# TASK.md — Roadmap Técnico Tour Guarapuava
+
+Documento de planejamento técnico detalhado do projeto Tour Guarapuava. As tarefas estão organizadas por módulo e devem ser executadas na ordem apresentada, respeitando as dependências entre seções.
+
+---
+
+## 1. Planejamento
+
+- [x] Validar e documentar os requisitos funcionais do MVP descritos no README.md
+- [x] Definir lista inicial de pontos turísticos de Guarapuava a serem usados como dados mockados (mínimo 10 locais)
+  - Parque do Lago
+  - Catedral Nossa Senhora de Belém
+  - Praça Cleve
+  - Museu do Vinho e do Vinho Colonial
+  - Bosque do Papa
+  - Castelo Mourisco
+  - Igreja Matriz São Pedro Apóstolo
+  - Parque Ambiental das Araucárias
+  - Morro do Cristo
+  - Praça de Eventos da Ponte de Ferro
+- [x] Definir lista inicial de categorias de pontos turísticos (ex.: Natureza, Histórico, Religioso, Gastronomia, Lazer)
+  - Natureza
+  - Histórico
+  - Religioso
+  - Gastronomia
+  - Lazer
+  - Cultura
+  - Aventura
+  - Família
+  - Mirantes
+  - Parques e áreas verdes
+- [x] Definir paleta de cores oficial do projeto (cores primárias, secundárias, neutras e de estado)
+  - Primária: `#0D5B83` (Azul Guarapuava)
+  - Secundária: `#F2994A` (Laranja Terra)
+  - Acento: `#2BAE66` (Verde Araucária)
+  - Neutras: `#FFFFFF`, `#F4F4F6`, `#E2E8F0`, `#333333`
+  - Estado sucesso: `#28A745`
+  - Estado alerta: `#F2C94C`
+  - Estado erro: `#EB5757`
+- [x] Definir fontes tipográficas a serem utilizadas no app
+  - Primária: `Inter` (regular, medium, semibold, bold)
+  - Alternativa para títulos: `Poppins` (semibold, bold)
+  - Sistema fallback: `system-ui`, `sans-serif`
+- [x] Definir nomes finais de telas e rotas de navegação
+  - `HomeScreen` / rota `Home`
+  - `MapScreen` / rota `Map`
+  - `ExploreScreen` / rota `Explore`
+  - `FavoritesScreen` / rota `Favorites`
+  - `ProfileScreen` / rota `Profile`
+  - `PlaceDetailsScreen` / rota `PlaceDetails`
+  - Navegação stack principal: `AppStack`
+  - Navegação de abas: `MainTabs`
+- [x] Criar board de tarefas (Kanban) refletindo as seções deste arquivo, se aplicável
+  - Board Kanban sugerido:
+    - Backlog: Planejamento, Setup Inicial, Arquitetura, Design System, Navegação, Home, Mapa, Explorar, Detalhes, Favoritos, Perfil, API, React Query, Zustand, Mocks, Testes, Performance, Segurança, Integração Backend, Deploy
+    - Em andamento: Setup Inicial, Arquitetura, Design System
+    - Revisão: Navegação, Home, Mapa
+    - Concluído: Planejamento
+
+## 2. Setup Inicial
+
+- [ ] Criar projeto Expo com template TypeScript (`npx create-expo-app --template`)
+- [ ] Configurar `tsconfig.json` com modo estrito (`strict: true`)
+- [ ] Configurar ESLint com regras para TypeScript e React Native
+- [ ] Configurar Prettier e integrar com ESLint
+- [ ] Configurar Husky + lint-staged para checagem de lint antes de commits
+- [ ] Criar estrutura de pastas conforme definido no README.md (`app/screens`, `app/components`, `app/services`, etc.)
+- [ ] Instalar dependência `react-navigation` e bibliotecas associadas (`@react-navigation/native`, `@react-navigation/native-stack`, `@react-navigation/bottom-tabs`)
+- [ ] Instalar dependência `@tanstack/react-query`
+- [ ] Instalar dependência `zustand`
+- [ ] Instalar dependência `axios`
+- [ ] Instalar dependências de mapa (`react-native-maps` ou equivalente compatível com Expo)
+- [ ] Instalar dependência de geolocalização (`expo-location`)
+- [ ] Instalar dependência de armazenamento local (`@react-native-async-storage/async-storage`)
+- [ ] Configurar arquivo `.env` e biblioteca de variáveis de ambiente (`expo-constants` ou `react-native-dotenv`)
+- [ ] Configurar `app.json`/`app.config.ts` com nome, ícone, splash screen e permissões (localização)
+- [ ] Validar execução do projeto em emulador Android e iOS (ou Expo Go)
+- [ ] Criar arquivo `.gitignore` adequado ao projeto Expo/React Native
+- [ ] Realizar primeiro commit do projeto base
+
+## 3. Arquitetura
+
+- [ ] Criar pasta `models/` com interfaces TypeScript: `Place`, `Category`, `OpeningHours`, `ContactInfo`, `Favorite`, `UserLocation`
+- [ ] Criar pasta `services/api/` com instância única do Axios (`apiClient.ts`)
+- [ ] Configurar interceptors básicos do Axios (tratamento de erro genérico, headers padrão)
+- [ ] Criar pasta `services/places/` com funções de acesso a dados de pontos turísticos (`getPlaces`, `getPlaceById`, `searchPlaces`)
+- [ ] Criar pasta `services/geolocation/` com funções de obtenção e cálculo de localização do usuário
+- [ ] Criar pasta `mocks/` com arquivo `places.mock.ts` contendo dados estáticos seguindo a interface `Place`
+- [ ] Implementar camada de abstração que permita alternar entre fonte mockada e API real sem alterar a camada de UI
+- [ ] Criar pasta `utils/` com funções utilitárias (formatação de distância, formatação de horários, cálculo de distância entre coordenadas)
+- [ ] Criar pasta `constants/` com valores fixos do projeto (raio padrão de busca, limites de paginação, etc.)
+- [ ] Documentar decisões arquiteturais relevantes em comentários nos arquivos principais
+
+## 4. Design System
+
+- [ ] Criar arquivo `theme/colors.ts` com paleta de cores definida na etapa de planejamento
+- [ ] Criar arquivo `theme/typography.ts` com hierarquia tipográfica (tamanhos, pesos, line-heights)
+- [ ] Criar arquivo `theme/spacing.ts` com escala de espaçamento (4, 8, 12, 16, 24, 32, 48)
+- [ ] Criar arquivo `theme/index.ts` exportando o tema consolidado
+- [ ] Criar componente `Button` reutilizável com variantes (primary, secondary, outline)
+- [ ] Criar componente `Input` reutilizável com suporte a label, placeholder e estado de erro
+- [ ] Criar componente `Card` base para exibição de pontos turísticos
+- [ ] Criar componente `Badge` para exibição de categorias
+- [ ] Criar componente `SearchBar` reutilizável
+- [ ] Criar componente `Header` reutilizável para as telas internas
+- [ ] Criar componente `LoadingState` (spinner/skeleton) para estados de carregamento
+- [ ] Criar componente `EmptyState` para listas vazias
+- [ ] Criar componente `ErrorState` para falhas de carregamento de dados
+- [ ] Criar componente `IconButton` para ações rápidas (favoritar, compartilhar)
+- [ ] Validar consistência visual de todos os componentes base em uma tela de showcase temporária
+
+## 5. Navegação
+
+- [ ] Criar arquivo `navigation/types.ts` com tipagem das rotas e parâmetros de navegação
+- [ ] Criar `TabNavigator.tsx` com abas: Home, Map, Explore, Favorites, Profile
+- [ ] Criar `AppNavigator.tsx` como stack principal, englobando o `TabNavigator` e a tela `PlaceDetails`
+- [ ] Configurar ícones das abas utilizando biblioteca de ícones compatível com Expo
+- [ ] Configurar headers customizados (ou ocultos) por tela conforme necessidade de design
+- [ ] Implementar navegação para `PlaceDetails` a partir de Home, Map, Explore e Favorites
+- [ ] Testar fluxo completo de navegação entre todas as telas
+- [ ] Garantir tipagem correta de parâmetros passados entre telas (ex.: `placeId` ao navegar para `PlaceDetails`)
+
+## 6. Home
+
+- [ ] Criar tela `screens/Home/HomeScreen.tsx`
+- [ ] Implementar seção de destaque (banner ou carrossel) com pontos turísticos em evidência
+- [ ] Implementar seção de categorias em destaque com navegação para Explore filtrado
+- [ ] Implementar seção "Próximos a você" utilizando dados de geolocalização (quando disponíveis)
+- [ ] Implementar atalho de navegação para a tela de busca/Explore
+- [ ] Conectar Home aos dados mockados via hook de consulta (React Query)
+- [ ] Implementar estados de carregamento e erro na Home
+- [ ] Implementar testes visuais em diferentes tamanhos de tela
+
+## 7. Mapa
+
+- [ ] Criar tela `screens/Map/MapScreen.tsx`
+- [ ] Integrar biblioteca de mapas e configurar exibição inicial centrada em Guarapuava-PR
+- [ ] Renderizar marcadores para cada ponto turístico a partir dos dados mockados
+- [ ] Implementar customização visual dos marcadores por categoria
+- [ ] Implementar ação de toque no marcador exibindo preview (nome, imagem, categoria) em card flutuante/bottom sheet
+- [ ] Implementar navegação do preview do marcador para a tela `PlaceDetails`
+- [ ] Integrar localização atual do usuário no mapa (marcador de posição própria)
+- [ ] Implementar botão de centralizar mapa na localização do usuário
+- [ ] Tratar permissões de localização negadas/indisponíveis com mensagem apropriada
+- [ ] Otimizar performance de renderização dos marcadores (evitar re-render desnecessário)
+
+## 8. Explorar
+
+- [ ] Criar tela `screens/Explore/ExploreScreen.tsx`
+- [ ] Implementar listagem completa de pontos turísticos em lista virtualizada (`FlatList`)
+- [ ] Implementar componente `SearchBar` conectado a estado de busca textual
+- [ ] Implementar filtro por categoria (chips/badges selecionáveis)
+- [ ] Implementar lógica de busca combinando texto e filtros de categoria
+- [ ] Implementar estado vazio quando nenhum resultado for encontrado
+- [ ] Implementar paginação ou carregamento incremental (caso volume de dados justifique)
+- [ ] Conectar tela aos dados via hook de consulta (React Query) com suporte a parâmetros de busca/filtro
+- [ ] Implementar navegação de cada item da lista para `PlaceDetails`
+
+## 9. Detalhes
+
+- [ ] Criar tela `screens/PlaceDetails/PlaceDetailsScreen.tsx`
+- [ ] Implementar exibição de galeria de imagens do local
+- [ ] Implementar exibição de nome, categoria, descrição completa e tags
+- [ ] Implementar exibição de endereço e mini-mapa com a localização do local
+- [ ] Implementar exibição de horários de funcionamento formatados por dia da semana
+- [ ] Implementar exibição de informações de contato (telefone, site, redes sociais), quando disponíveis
+- [ ] Implementar botão de favoritar/desfavoritar conectado ao estado global (Zustand)
+- [ ] Implementar botão de abrir localização em aplicativo de mapas externo
+- [ ] Implementar cálculo e exibição da distância entre o usuário e o local (quando geolocalização disponível)
+- [ ] Implementar estado de carregamento e erro ao buscar detalhes do local
+- [ ] Implementar botão de compartilhar local (preparar estrutura, mesmo que funcionalidade completa seja futura)
+
+## 10. Favoritos
+
+- [ ] Criar tela `screens/Favorites/FavoritesScreen.tsx`
+- [ ] Implementar listagem dos locais favoritados a partir do estado global (Zustand)
+- [ ] Implementar estado vazio para quando não houver favoritos
+- [ ] Implementar ação de remover favorito diretamente da listagem
+- [ ] Implementar navegação de cada item favoritado para `PlaceDetails`
+- [ ] Garantir persistência dos favoritos entre sessões do app (armazenamento local)
+- [ ] Implementar ordenação dos favoritos (ex.: por data de adição)
+
+## 11. Perfil
+
+- [ ] Criar tela `screens/Profile/ProfileScreen.tsx`
+- [ ] Implementar layout inicial informativo (sobre o app, versão, créditos)
+- [ ] Implementar seção de configurações básicas (ex.: preferências de unidade de distância)
+- [ ] Preparar estrutura de tela para futura inclusão de login/cadastro
+- [ ] Adicionar links institucionais (política de privacidade, termos de uso) como placeholders
+
+## 12. API
+
+- [ ] Definir contratos de endpoints REST previstos (`/places`, `/places/:id`, `/categories`, `/places/search`)
+- [ ] Documentar formato esperado de resposta de cada endpoint em comentários ou arquivo de referência
+- [ ] Implementar funções de serviço (`services/places`) já estruturadas para consumir os endpoints reais futuramente
+- [ ] Implementar tratamento de erros de rede (timeout, falha de conexão, erro 4xx/5xx) na camada de serviços
+- [ ] Implementar mecanismo de retry básico para falhas de rede recuperáveis
+- [ ] Preparar interceptor do Axios para futura injeção de token de autenticação
+
+## 13. React Query
+
+- [ ] Configurar `QueryClientProvider` na raiz da aplicação
+- [ ] Definir configuração global de `staleTime` e `cacheTime` padrão
+- [ ] Implementar hook `usePlacesQuery` para listagem de pontos turísticos
+- [ ] Implementar hook `usePlaceDetailsQuery` para detalhes de um ponto turístico
+- [ ] Implementar hook `useCategoriesQuery` para listagem de categorias
+- [ ] Implementar hook `useSearchPlacesQuery` para busca textual/filtrada
+- [ ] Implementar tratamento padronizado de estados `isLoading`, `isError` e `data` nas telas consumidoras
+- [ ] Avaliar necessidade de invalidação manual de cache em cenários específicos (ex.: pull-to-refresh)
+- [ ] Implementar funcionalidade de pull-to-refresh nas telas de listagem (Home, Explore)
+
+## 14. Zustand
+
+- [ ] Criar `store/favoritesStore.ts` com estado de favoritos e ações (`addFavorite`, `removeFavorite`, `isFavorite`)
+- [ ] Implementar persistência do `favoritesStore` em armazenamento local (AsyncStorage)
+- [ ] Criar `store/filtersStore.ts` com estado de filtros de busca/categoria selecionados em Explore
+- [ ] Criar `store/userLocationStore.ts` com estado da localização atual do usuário
+- [ ] Garantir tipagem completa de todas as stores
+- [ ] Testar persistência e recuperação de estado entre reinícios do app
+
+## 15. Mocks
+
+- [ ] Criar arquivo `mocks/places.mock.ts` com no mínimo 10 pontos turísticos reais de Guarapuava
+- [ ] Criar arquivo `mocks/categories.mock.ts` com as categorias definidas na etapa de planejamento
+- [ ] Garantir que os dados mockados sigam exatamente as interfaces definidas em `models/`
+- [ ] Implementar função simulada de delay de rede nos mocks para emular comportamento assíncrono real
+- [ ] Implementar função simulada de busca textual sobre os dados mockados
+
+## 16. Testes
+
+- [ ] Configurar ambiente de testes (Jest + React Native Testing Library)
+- [ ] Implementar testes unitários para funções utilitárias (`utils/`)
+- [ ] Implementar testes unitários para a store `favoritesStore`
+- [ ] Implementar testes de renderização para componentes do Design System (`Button`, `Card`, `Badge`)
+- [ ] Implementar testes de integração para a tela `Explore` (busca e filtros)
+- [ ] Implementar testes de integração para a tela `PlaceDetails` (favoritar/desfavoritar)
+- [ ] Implementar testes de navegação entre telas principais
+- [ ] Configurar execução de testes em pipeline de CI (quando aplicável)
+
+## 17. Performance
+
+- [ ] Validar uso de `FlatList` com propriedades de otimização (`initialNumToRender`, `windowSize`, `getItemLayout` quando aplicável)
+- [ ] Implementar lazy loading e placeholders para imagens dos pontos turísticos
+- [ ] Validar uso de `React.memo`/`useCallback`/`useMemo` em componentes críticos de performance (itens de lista, marcadores de mapa)
+- [ ] Validar tempo de resposta percebido ao alternar entre abas
+- [ ] Avaliar tamanho do bundle e possíveis otimizações de imports
+- [ ] Validar consumo de bateria/dados ao utilizar geolocalização contínua
+- [ ] Realizar testes de performance em dispositivos de entrada (low-end) quando possível
+
+## 18. Segurança
+
+- [ ] Garantir que nenhuma chave sensível seja exposta diretamente no código-fonte (uso de variáveis de ambiente)
+- [ ] Validar tratamento seguro de dados de localização do usuário (uso mínimo necessário)
+- [ ] Preparar estrutura para armazenamento seguro de tokens de autenticação (armazenamento criptografado) para fase futura
+- [ ] Validar sanitização de dados de entrada na busca (prevenção de comportamentos inesperados)
+- [ ] Documentar política de dados e permissões solicitadas ao usuário (localização)
+
+## 19. Integração Backend
+
+- [ ] Definir ambiente de homologação/produção da API REST futura
+- [ ] Substituir gradualmente funções de `services/places` de mock para chamadas reais via Axios
+- [ ] Validar compatibilidade entre o formato de resposta real da API e as interfaces em `models/`
+- [ ] Implementar tratamento de versionamento de API (caso necessário)
+- [ ] Validar comportamento do React Query com dados reais (loading, cache, revalidação)
+- [ ] Implementar monitoramento básico de erros de integração (logs)
+- [ ] Planejar estratégia de fallback caso a API esteja indisponível (uso de cache local)
+
+## 20. Deploy
+
+- [ ] Configurar `app.json`/`app.config.ts` com identificadores finais de bundle (Android/iOS)
+- [ ] Gerar ícone e splash screen finais do aplicativo
+- [ ] Configurar build via EAS Build (Expo Application Services)
+- [ ] Gerar build de testes internos (APK/IPA de desenvolvimento)
+- [ ] Validar build em dispositivos físicos Android e iOS
+- [ ] Preparar materiais para publicação (descrição da loja, screenshots, política de privacidade)
+- [ ] Realizar submissão para testes internos/beta (Google Play Internal Testing / TestFlight)
+- [ ] Planejar processo de versionamento e changelog para futuras atualizações

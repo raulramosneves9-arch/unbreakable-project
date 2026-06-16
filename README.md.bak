@@ -1,0 +1,358 @@
+# Tour Guarapuava
+
+Aplicativo mobile de turismo para a cidade de Guarapuava-PR, com foco em facilitar o acesso de moradores e turistas aos pontos turísticos da cidade através de mapa interativo, catálogo de atrações e informações detalhadas dos locais.
+
+## Sumário
+
+- [Visão Geral](#visão-geral)
+- [Objetivos](#objetivos)
+- [Público-Alvo](#público-alvo)
+- [Escopo do MVP](#escopo-do-mvp)
+- [Funcionalidades Atuais](#funcionalidades-atuais)
+- [Funcionalidades Futuras](#funcionalidades-futuras)
+- [Tecnologias Previstas](#tecnologias-previstas)
+- [Arquitetura Proposta](#arquitetura-proposta)
+- [Estrutura de Pastas Sugerida](#estrutura-de-pastas-sugerida)
+- [Modelagem Inicial de Dados](#modelagem-inicial-de-dados)
+- [Fluxo de Navegação](#fluxo-de-navegação)
+- [Design System](#design-system)
+- [Estratégia de Integração com Backend](#estratégia-de-integração-com-backend)
+- [Estratégia de Gerenciamento de Estado](#estratégia-de-gerenciamento-de-estado)
+- [Estratégia de Cache](#estratégia-de-cache)
+- [Estratégia de Autenticação Futura](#estratégia-de-autenticação-futura)
+- [Requisitos de Performance](#requisitos-de-performance)
+- [Boas Práticas e Padrões de Desenvolvimento](#boas-práticas-e-padrões-de-desenvolvimento)
+
+---
+
+## Visão Geral
+
+O **Tour Guarapuava** é um aplicativo mobile voltado à promoção turística da cidade de Guarapuava, localizada no estado do Paraná. A proposta é centralizar, em uma única plataforma, informações confiáveis e atualizadas sobre pontos turísticos, permitindo que o usuário explore a cidade através de um mapa interativo, consulte detalhes relevantes de cada atração (horários, descrição, fotos, localização) e organize sua própria experiência de visita por meio de favoritos e busca.
+
+O projeto nasce como um MVP (Minimum Viable Product), com escopo restrito a funcionalidades essenciais, mas é concebido desde o início com uma arquitetura escalável, preparada para evoluir com integração a APIs REST, autenticação de usuários, conteúdo dinâmico e novas funcionalidades em versões futuras.
+
+## Objetivos
+
+- Facilitar a descoberta de pontos turísticos de Guarapuava por moradores e visitantes.
+- Centralizar informações turísticas que hoje estão dispersas em múltiplas fontes (sites, redes sociais, folhetos).
+- Oferecer uma experiência de navegação simples, rápida e intuitiva, mesmo para usuários com baixa familiaridade tecnológica.
+- Disponibilizar geolocalização para orientar o usuário em relação à sua proximidade com as atrações.
+- Permitir que o usuário personalize sua experiência através de uma lista de favoritos.
+- Criar uma base técnica sólida e escalável que sustente o crescimento do produto em fases futuras (conteúdo dinâmico, autenticação, eventos, avaliações, etc.).
+
+## Público-Alvo
+
+- **Turistas** que visitam Guarapuava e desejam conhecer os principais pontos de interesse da cidade de forma autônoma.
+- **Moradores locais** interessados em redescobrir ou conhecer melhor atrações da própria cidade.
+- **Órgãos públicos e iniciativas de turismo municipal**, que podem utilizar o aplicativo como ferramenta de divulgação turística.
+- Usuários com diferentes níveis de familiaridade tecnológica, o que reforça a necessidade de uma interface simples e acessível.
+
+## Escopo do MVP
+
+A primeira versão do Tour Guarapuava contemplará exclusivamente as funcionalidades essenciais para validar a proposta de valor do produto:
+
+- Tela inicial (Home)
+- Mapa interativo com pontos turísticos
+- Lista/catálogo de pontos turísticos
+- Tela de detalhes de cada local
+- Pesquisa de atrações
+- Geolocalização do usuário
+- Favoritos armazenados localmente no dispositivo
+
+Funcionalidades como autenticação de usuários, backend dinâmico, avaliações de usuários e notificações ficam fora do escopo do MVP e são tratadas como evolução futura do produto.
+
+## Requisitos Funcionais do MVP
+
+Os requisitos funcionais do MVP foram validados e documentados com base no escopo e nas funcionalidades atuais descritas no projeto. O MVP deve atender aos seguintes requisitos:
+
+- Exibir uma tela inicial com destaques, atalhos de navegação e visão geral do app.
+- Exibir um mapa interativo com pontos turísticos georreferenciados na cidade.
+- Exibir um catálogo/lista de pontos turísticos com busca textual e filtros básicos por categoria.
+- Exibir detalhes de cada ponto turístico, incluindo descrição, imagens, endereço, horários de funcionamento e localização.
+- Permitir busca textual de atrações e navegação até a tela de detalhes de um local.
+- Identificar a posição atual do usuário e calcular proximidade entre o usuário e os locais apresentados.
+- Permitir que o usuário marque locais como favoritos e persista essa informação localmente.
+- Disponibilizar navegação principal entre as telas Home, Mapa, Explorar, Favoritos e Perfil.
+- Preparar a arquitetura para suportar integração futura com API REST, estado global e dados mockados.
+
+## Funcionalidades Atuais
+
+| Funcionalidade | Descrição |
+|---|---|
+| Tela Inicial | Apresenta destaques, atalhos de navegação e visão geral da proposta do app. |
+| Mapa Interativo | Exibe os pontos turísticos georreferenciados em um mapa navegável. |
+| Lista de Pontos Turísticos | Catálogo das atrações, com filtros básicos e visualização em cards. |
+| Detalhes do Local | Tela com descrição completa, fotos, endereço, horário de funcionamento e localização no mapa. |
+| Pesquisa de Atrações | Busca textual sobre o catálogo de pontos turísticos. |
+| Geolocalização | Identificação da posição do usuário para cálculo de proximidade e orientação no mapa. |
+| Favoritos Locais | Marcação de pontos turísticos como favoritos, persistidos localmente no dispositivo. |
+
+## Funcionalidades Futuras
+
+- Integração completa com backend via API REST (conteúdo gerenciado remotamente).
+- Autenticação de usuários (e-mail/senha e provedores sociais).
+- Sincronização de favoritos entre dispositivos via conta de usuário.
+- Avaliações e comentários sobre os pontos turísticos.
+- Roteiros turísticos pré-definidos (trilhas sugeridas de visita).
+- Notificações push (eventos, novidades, promoções turísticas).
+- Suporte multilíngue (português, inglês, espanhol).
+- Modo offline com cache de conteúdo essencial.
+- Painel administrativo para gestão de conteúdo turístico.
+- Compartilhamento social de locais e roteiros.
+
+## Tecnologias Previstas
+
+| Categoria | Tecnologia |
+|---|---|
+| Linguagem | TypeScript |
+| Framework Mobile | React Native |
+| Ferramenta de Build/Dev | Expo |
+| Navegação | React Navigation |
+| Gerenciamento de Dados Assíncronos | React Query (TanStack Query) |
+| Gerenciamento de Estado Global | Zustand |
+| Cliente HTTP | Axios |
+
+A escolha dessas tecnologias visa equilibrar produtividade de desenvolvimento, manutenibilidade do código e capacidade de escalar o projeto para uma integração futura com serviços backend reais.
+
+## Arquitetura Proposta
+
+O projeto seguirá uma arquitetura em camadas, inspirada em princípios de separação de responsabilidades, favorecendo testabilidade e evolução incremental:
+
+- **Camada de Apresentação (UI)**: componentes visuais, telas (screens) e navegação, responsáveis exclusivamente pela exibição e captura de interação do usuário.
+- **Camada de Estado**: gerenciamento de estado global (Zustand) para dados de UI e preferências do usuário (ex.: favoritos, filtros ativos), e gerenciamento de estado assíncrono/servidor (React Query) para dados remotos (ex.: lista de pontos turísticos).
+- **Camada de Serviços/API**: abstração de chamadas HTTP via Axios, isolando o restante da aplicação de detalhes de implementação da comunicação com o backend.
+- **Camada de Domínio/Modelos**: tipagens e regras de negócio relacionadas às entidades do app (PontoTuristico, Categoria, Favorito, Usuario).
+- **Camada de Dados Locais**: persistência local (favoritos, preferências) utilizando armazenamento do dispositivo.
+
+Inicialmente, o backend será simulado por meio de mocks locais, mas toda a camada de serviços será desenhada para que a substituição por chamadas reais a uma API REST exija o mínimo de refatoração possível (princípio de inversão de dependência entre UI e fonte de dados).
+
+## Estrutura de Pastas Sugerida
+
+```
+tour-guarapuava/
+├── app/
+│   ├── navigation/
+│   │   ├── AppNavigator.tsx
+│   │   ├── TabNavigator.tsx
+│   │   └── types.ts
+│   ├── screens/
+│   │   ├── Home/
+│   │   ├── Map/
+│   │   ├── Explore/
+│   │   ├── PlaceDetails/
+│   │   ├── Favorites/
+│   │   └── Profile/
+│   ├── components/
+│   │   ├── common/
+│   │   ├── map/
+│   │   ├── cards/
+│   │   └── forms/
+│   ├── hooks/
+│   ├── services/
+│   │   ├── api/
+│   │   ├── places/
+│   │   └── geolocation/
+│   ├── store/
+│   │   ├── favoritesStore.ts
+│   │   └── filtersStore.ts
+│   ├── queries/
+│   │   ├── usePlacesQuery.ts
+│   │   └── usePlaceDetailsQuery.ts
+│   ├── models/
+│   │   ├── Place.ts
+│   │   ├── Category.ts
+│   │   └── Favorite.ts
+│   ├── mocks/
+│   │   └── places.mock.ts
+│   ├── theme/
+│   │   ├── colors.ts
+│   │   ├── typography.ts
+│   │   └── spacing.ts
+│   ├── utils/
+│   └── constants/
+├── assets/
+│   ├── images/
+│   └── icons/
+├── app.json
+├── package.json
+├── tsconfig.json
+├── README.md
+└── TASK.md
+```
+
+## Modelagem Inicial de Dados
+
+### Entidade: Place (Ponto Turístico)
+
+```typescript
+interface Place {
+  id: string;
+  name: string;
+  description: string;
+  shortDescription: string;
+  category: Category;
+  address: string;
+  latitude: number;
+  longitude: number;
+  images: string[];
+  openingHours: OpeningHours[];
+  contact?: ContactInfo;
+  rating?: number;
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
+### Entidade: Category (Categoria)
+
+```typescript
+interface Category {
+  id: string;
+  name: string;
+  icon: string;
+}
+```
+
+### Entidade: OpeningHours
+
+```typescript
+interface OpeningHours {
+  dayOfWeek: number; // 0-6 (Domingo-Sábado)
+  opensAt: string;   // formato HH:mm
+  closesAt: string;  // formato HH:mm
+  closed: boolean;
+}
+```
+
+### Entidade: ContactInfo
+
+```typescript
+interface ContactInfo {
+  phone?: string;
+  website?: string;
+  instagram?: string;
+}
+```
+
+### Entidade: Favorite (Favorito)
+
+```typescript
+interface Favorite {
+  placeId: string;
+  addedAt: string;
+}
+```
+
+### Entidade: UserLocation (Geolocalização)
+
+```typescript
+interface UserLocation {
+  latitude: number;
+  longitude: number;
+  accuracy?: number;
+  updatedAt: string;
+}
+```
+
+## Fluxo de Navegação
+
+```
+App
+├── Tab Navigator (navegação principal)
+│   ├── Home
+│   │   └── PlaceDetails (stack)
+│   ├── Map
+│   │   └── PlaceDetails (stack)
+│   ├── Explore
+│   │   ├── SearchResults
+│   │   └── PlaceDetails (stack)
+│   ├── Favorites
+│   │   └── PlaceDetails (stack)
+│   └── Profile
+```
+
+- **Home**: tela inicial com destaques e atalhos; permite navegar para detalhes de um local ou para as demais abas.
+- **Map**: mapa interativo com marcadores; ao tocar em um marcador, exibe um preview e permite navegar para os detalhes.
+- **Explore**: lista completa de pontos turísticos com busca e filtros por categoria.
+- **Favorites**: lista dos locais marcados como favoritos pelo usuário.
+- **Profile**: tela reservada para configurações do usuário e, futuramente, autenticação.
+- **PlaceDetails**: tela acessível a partir de qualquer aba, exibindo informações completas do ponto turístico selecionado.
+
+## Design System
+
+O Design System do Tour Guarapuava será construído de forma incremental, priorizando consistência visual e reaproveitamento de componentes:
+
+- **Paleta de Cores**: cores primárias inspiradas na identidade visual de Guarapuava (tons de verde, relacionados à natureza e aos parques da região), cores neutras para textos e fundos, e cores de apoio para estados (sucesso, erro, alerta).
+- **Tipografia**: hierarquia tipográfica definida (títulos, subtítulos, corpo de texto, legendas), com fonte única para manter consistência em todas as plataformas.
+- **Espaçamento**: sistema de espaçamento baseado em múltiplos de 4px (4, 8, 12, 16, 24, 32...) para garantir alinhamento e consistência entre componentes.
+- **Componentes Base**: botões, inputs, cards de pontos turísticos, badges de categoria, barra de busca, bottom tabs, headers, modais e estados de carregamento/erro/vazio.
+- **Iconografia**: conjunto de ícones consistente para categorias de pontos turísticos e ações do app (favoritar, compartilhar, localizar).
+- **Tema**: estrutura preparada para eventual suporte a modo escuro (dark mode) em versões futuras.
+
+## Estratégia de Integração com Backend
+
+Na fase de MVP, os dados serão fornecidos por meio de **mocks locais**, simulando o formato e o comportamento de uma API REST real. A camada de serviços (`services/api`) será desenhada com uma interface estável (contratos de funções e tipos), de forma que a troca da fonte de dados mockada por chamadas HTTP reais via Axios não exija alterações nas camadas de UI, estado ou queries.
+
+Quando o backend estiver disponível, a integração seguirá o padrão REST, com endpoints previstos como:
+
+- `GET /places` — lista de pontos turísticos
+- `GET /places/:id` — detalhes de um ponto turístico
+- `GET /categories` — lista de categorias
+- `GET /places/search?q=` — busca textual
+
+Toda comunicação HTTP será centralizada em uma instância única do Axios, com interceptors para tratamento de erros, headers padrão e, futuramente, tokens de autenticação.
+
+## Estratégia de Gerenciamento de Estado
+
+O gerenciamento de estado será dividido conforme a natureza do dado:
+
+- **Estado de Servidor (dados remotos)**: gerenciado via **React Query**, responsável por busca, cache, revalidação e sincronização de dados como lista de pontos turísticos, categorias e detalhes de locais.
+- **Estado Global de UI/Cliente**: gerenciado via **Zustand**, responsável por dados que não vêm diretamente do servidor, como lista de favoritos, filtros selecionados pelo usuário e preferências locais.
+- **Estado Local de Componente**: gerenciado via hooks nativos do React (`useState`, `useReducer`) para estados específicos de uma tela ou componente, sem necessidade de compartilhamento global.
+
+Essa separação evita a duplicação de responsabilidades entre as ferramentas e mantém o código previsível e fácil de manter.
+
+## Estratégia de Cache
+
+O React Query será responsável pela política de cache dos dados remotos, incluindo:
+
+- Definição de tempos de `staleTime` e `cacheTime` por tipo de consulta (dados como categorias, que mudam pouco, terão cache mais longo do que listas de busca).
+- Revalidação automática em background ao retornar o foco para o aplicativo.
+- Estratégia de **stale-while-revalidate**, exibindo dados em cache imediatamente enquanto busca atualizações em segundo plano.
+- Persistência de cache entre sessões do app (avaliação futura de bibliotecas de persistência de cache do React Query) para suportar cenários de conectividade instável.
+
+Dados de favoritos, por serem de origem local, não passam pela camada de cache do React Query, sendo armazenados diretamente via Zustand com persistência em storage local do dispositivo.
+
+## Estratégia de Autenticação Futura
+
+Embora o MVP não inclua autenticação, a arquitetura prevê sua incorporação futura:
+
+- Autenticação via e-mail/senha e, possivelmente, provedores OAuth (Google).
+- Armazenamento seguro de tokens de sessão em armazenamento criptografado do dispositivo.
+- Interceptor do Axios responsável por injetar automaticamente o token de autenticação nas requisições e tratar renovação/expiração de sessão.
+- Estado de sessão do usuário gerenciado via Zustand, com persistência local.
+- Telas de login, cadastro e recuperação de senha a serem adicionadas à navegação na aba Profile.
+- Migração gradual dos favoritos de armazenamento local para sincronização vinculada à conta do usuário.
+
+## Requisitos de Performance
+
+- Tempo de carregamento inicial (cold start) compatível com boas práticas de aplicativos React Native/Expo.
+- Renderização otimizada de listas longas de pontos turísticos, utilizando componentes de lista virtualizada (`FlatList` ou similar).
+- Carregamento de imagens otimizado, com placeholders e lazy loading.
+- Uso eficiente do mapa interativo, evitando re-renderizações desnecessárias de marcadores.
+- Cache de dados via React Query para reduzir requisições redundantes e melhorar percepção de velocidade.
+- Atenção ao consumo de bateria e dados ao utilizar geolocalização (uso de precisão adequada ao contexto, evitando monitoramento contínuo desnecessário).
+
+## Boas Práticas e Padrões de Desenvolvimento
+
+- Uso obrigatório de **TypeScript** com tipagem estrita em todo o projeto.
+- Componentização seguindo princípios de responsabilidade única (componentes pequenos, reutilizáveis e previsíveis).
+- Separação clara entre lógica de negócio, estado e apresentação.
+- Padronização de nomenclatura de arquivos e pastas (PascalCase para componentes, camelCase para funções e variáveis).
+- Centralização de constantes, cores e estilos no Design System, evitando valores fixos ("magic numbers/strings") espalhados pelo código.
+- Uso de hooks customizados para encapsular lógica reutilizável (ex.: `usePlaces`, `useFavorites`, `useUserLocation`).
+- Tratamento explícito de estados de carregamento, erro e vazio em todas as telas que dependem de dados assíncronos.
+- Organização do código pensando em escalabilidade, facilitando a entrada de novos desenvolvedores no projeto.
+- Versionamento de código seguindo boas práticas de Git (commits atômicos e descritivos, uso de branches por funcionalidade).
+- Documentação contínua do projeto, mantendo este README e o TASK.md atualizados conforme a evolução do produto.
